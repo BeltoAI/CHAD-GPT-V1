@@ -1,0 +1,396 @@
+/* General body styling */
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: hsl(0, 0%, 0%); /* Black background */
+    color: #FFFFFF;
+    position: relative; /* Needed for the pseudo-element */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('https://belto.site/static_resources/landing_page_images_v1/BELTO LOGO FINAL.png'); /* Path to your logo image */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20%;
+    opacity: 0.2; 
+    z-index: 0;
+}
+
+.container {
+    position: relative;
+    z-index: 1; /* Ensure content is above the background */
+}
+
+/* Suggestion box styling */
+.suggestion-container {
+    position: absolute;
+    bottom: 80px; /* Place the suggestions just above the prompt bar */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px; /* Space between the boxes */
+    z-index: 999; /* Ensure they stay on top */
+}
+
+.suggestion-box {
+    width: 250px;
+    padding: 15px;
+    background-color: #333333;
+    color: #FFFFFF;
+    border: 2px solid #ceb153; /* Golden border */
+    border-radius: 15px; /* Rounded edges */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Add some label style */
+.suggestion-box .label {
+    font-weight: bold;
+    color: #ceb153; /* Golden color for the label */
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Animation to appear */
+.suggestion-box.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-20px); /* Slight move up */
+}
+
+/* BELTO positioning */
+.belto-wrapper {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 10px; /* Aligns with the top */
+    left: 10px; /* Fixed position */
+}
+
+.belto-doc {
+    font-size: 24px;
+    margin-left: 10px; /* Space between the menu bars and BELTO text */
+    color: #FFFFFF;
+    transition: width 0.3s ease, margin-left 0.3s ease;
+}
+
+/* Output area */
+#output {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    padding-top: 40px; /* Decrease this value to reduce the distance */
+    padding-bottom: 120px; /* Ensure the output doesn't overlap with the prompt bar */
+    box-sizing: border-box;
+}
+
+/* Message styling */
+.user-message {
+    color: #FFFFFF; /* White text for user's message */
+    margin-bottom: 15px;
+}
+
+.belto-message {
+    color: #ceb153; /* Golden text for BELTO's message */
+    margin-bottom: 15px;
+}
+
+/* Response container styling */
+.response-container {
+    display: flex;
+    align-items: flex-start; /* Align content at the top */
+    margin-bottom: 20px;
+    margin-left: 0; /* Ensure both user and bot messages start at the same point */
+    padding-left: 0; /* Reset any padding on the left */
+    width: 100%; /* Ensure the full width is used */
+}
+
+/* Resetting margins and paddings for consistent alignment */
+.user-message, .belto-message {
+    text-align: left; /* Align the text to the left */
+    margin-left: 0; /* Remove any left margin */
+    padding-left: 0; /* Reset padding */
+    width: 100%; /* Ensure the full width is used */
+    display: flex;
+    align-items: center;
+}
+
+/* Profile picture alignment */
+.profile-pic {
+    width: 50px; /* Adjust the size as needed */
+    height: 50px;
+    border-radius: 50%; /* Makes the image circular */
+    border: 2px solid #ceb153; /* Adds a golden border */
+    object-fit: cover; /* Ensures the image scales correctly within the circle */
+    margin-right: 10px; /* Space between the image and the text */
+}
+
+/* Ensure text and icon layout alignment */
+.response-container .ms-3 {
+    margin-left: 0; /* Reset any left margin */
+    padding-left: 0; /* Remove left padding */
+    flex: 1; /* Allow text to take up remaining space */
+}
+
+/* Interaction buttons */
+.interaction-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.interaction-container button {
+    margin-right: 5px;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 5px;
+    background-color: #333333;
+    color: #FFFFFF;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.interaction-container button:hover {
+    background-color: #555555;
+}
+
+/* Divider styling */
+.divider {
+    border: 0;
+    height: 1px;
+    background: #555555;
+    margin: 20px 0;
+}
+
+/* Prompt bar styling */
+.prompt-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: linear-gradient(135deg, #000000, #000000);
+    box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    border-radius: 30px; /* Give rounded corners to the bar */
+    transition: all 0.3s ease;
+}
+
+/* Centering the input field and buttons */
+.prompt-bar form {
+    display: flex;
+    justify-content: center;
+    width: 100%; /* Ensures the form takes up full width of the prompt bar */
+    max-width: 1200px; /* Adjust max-width for a more reasonable size */
+}
+
+/* Glowing border for input on hover */
+.prompt-input {
+    flex: none;
+    width: 100%;  /* Set the input field width to fill the space reasonably */
+    background-color: #333333;
+    border: none;
+    color: #FFFFFF;
+    padding: 12px 20px;
+    border-radius: 50px;
+    font-size: 16px;
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.prompt-input:hover {
+    animation: glow-input 2s infinite linear;
+}
+
+/* Remove blue border on hover and focus */
+.prompt-input:focus {
+    outline: none;  /* Removes the blue outline */
+}
+
+/* Glowing border animation for input field */
+@keyframes glow-input {
+    0% {
+        border-color: #ceb153;
+        box-shadow: 0 0 10px #ceb153;
+    }
+    50% {
+        border-color: #ffffff;
+        box-shadow: 0 0 15px #ffffff;
+    }
+    100% {
+        border-color: #ceb153;
+        box-shadow: 0 0 10px #ceb153;
+    }
+}
+
+/* Submit button styling */
+.btn-submit, .btn-upload {
+    background: #ceb153; /* Golden color for the buttons */
+    border: none;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-submit:hover, .btn-upload:hover {
+    background-color: #fff;
+    color: #ceb153;
+}
+
+/* Disabled state for the submit button */
+.btn-submit:disabled {
+    background-color: #ceb153; /* Maintain the golden background when disabled */
+    color: #FFFFFF; /* Keep the text white when disabled */
+    opacity: 0.7; /* Optional: You can adjust the opacity for the disabled look */
+    cursor: not-allowed; /* Change cursor to indicate the button is disabled */
+}
+
+/* Stop button styling */
+.btn-stop {
+    background: #ceb153; /* Stop button and submit button use golden color */
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 50px;
+    color: #FFFFFF;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+/* Sidebar styles */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 250px;
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1000;
+    overflow-y: auto; /* Enable scrolling for lectures */
+}
+
+/* Sidebar header */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #555;
+}
+
+/* Sidebar content */
+.sidebar-content {
+    flex-grow: 1;
+    overflow-y: auto; /* Make sidebar scrollable */
+    padding-right: 10px;
+}
+
+/* Lecture items styling */
+.lecture-item {
+    background-color: #444;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px; /* Rounded edges */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.lecture-item:hover {
+    background-color: #555;
+}
+
+/* Sidebar footer for Settings and Logout */
+.sidebar-footer {
+    padding-top: 10px;
+    border-top: 1px solid #555;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar-footer button {
+    width: 48%; /* Make the buttons take half the width each */
+    background-color: #444;
+    color: white;
+    border-radius: 10px; /* Rounded edges */
+    border: none;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar-footer button:hover {
+    background-color: #555;
+}
+
+/* When the sidebar is open, the prompt field and BELTO are squeezed */
+.prompt-bar.squeezed, .belto-doc.squeezed {
+    width: calc(100% - 250px); /* Reduce width when sidebar is open */
+    margin-left: 250px; /* Shift the BELTO text */
+}
+
+/* Add transition to the container for smoother resizing */
+.squeezed-container {
+    margin-left: 250px; /* Move the content to the right when the sidebar opens */
+    transition: margin-left 0.3s ease;
+}
+
+/* Mobile specific adjustments */
+@media (max-width: 600px) {
+    .prompt-bar form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .prompt-input {
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    #output {
+        padding: 10px;
+        padding-top: 100px; /* Adjust for mobile top spacing */
+        padding-bottom: 140px; /* Adjust for the larger prompt bar on mobile */
+    }
+
+    .interaction-container button {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+
+    .container h1 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+}
+
+/* Golden B styling */
+.golden-b {
+    color: #ceb153; 
+    font-weight: bold;
+}

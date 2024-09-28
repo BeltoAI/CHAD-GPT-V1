@@ -1,0 +1,87 @@
+/* Sidebar styling */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Initially hidden off-screen */
+    width: 250px;
+    height: 100%;
+    background-color: #1d1c1c;
+    color: white;
+    transition: left 0.3s ease;
+    z-index: 2000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+
+.sidebar.open {
+    left: 0; /* When open, move the sidebar into view */
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sidebar-header h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.sidebar-content {
+    font-size: 16px;
+}
+
+/* Toggle button styling */
+.sidebar-toggle {
+    position: absolute;
+    top: 10px; /* Aligns with the top of BELTO */
+    left: 100px; /* Adjust to be next to BELTO text */
+    background-color: transparent;
+    color: #8c6c01; /* Golden color like the "B" in BELTO */
+    border: none;
+    font-size: 24px; /* Adjust size for visibility */
+    cursor: pointer;
+    z-index: 2100;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.sidebar-toggle:focus {
+    outline: none;
+}
+
+/* Hide the sidebar toggle button when the sidebar is open */
+.sidebar-toggle.hidden {
+    display: none;
+}
+
+/* Add transition effect to prompt bar and BELTO */
+.prompt-bar, .belto-doc {
+    transition: width 0.3s ease, margin-left 0.3s ease; /* Smooth transition for squeezing */
+    width: 100%; /* Ensure it's full-width initially */
+}
+
+/* When the sidebar is open, the prompt field and BELTO are squeezed */
+.prompt-bar.squeezed, .belto-doc.squeezed {
+    width: calc(100% - 250px); /* Reduce width when sidebar is open */
+    margin-left: 250px; /* Shift the BELTO text */
+}
+
+/* Add transition to the container for smoother resizing */
+.squeezed-container {
+    margin-left: 250px; /* Move the content to the right when the sidebar opens */
+    transition: margin-left 0.3s ease;
+}
